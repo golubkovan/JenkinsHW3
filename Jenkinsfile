@@ -18,5 +18,12 @@ pipeline {
                 sh 'mvn package'
             }
         }
+        stage('Make docker image') {
+            steps {
+                sh 'docker build --tag=tomcat+war .'
+                sh '''docker tag tomcat+war agolubkov/tomcat+war && docker push agolubkov/tomcat+war'''
+
+      }
+    }
     }
 }
